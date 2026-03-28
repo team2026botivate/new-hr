@@ -15,8 +15,7 @@ import {
    IndianRupee,
    Camera,
    Trash2,
-   ChevronRight,
-   Tooltip
+   ChevronRight
 } from 'lucide-react';
 import { cn, formatDate, formatCurrency } from '@/lib/utils';
 import LoadingSkeleton, { SkeletonItem } from '@/components/shared/LoadingSkeleton';
