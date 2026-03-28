@@ -10,6 +10,7 @@ interface EmployeeState {
   setSearchQuery: (query: string) => void;
   setDepartment: (dept: Department | 'All') => void;
   getEmployeeById: (id: string) => Employee | undefined;
+  applyFilters: () => void;
 }
 
 export const useEmployeeStore = create<EmployeeState>((set, get) => ({
