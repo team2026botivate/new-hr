@@ -1,26 +1,191 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-inter: var(--font-inter);
+  
+  /* Standardizing colors for Tailwind v4 utilities */
+  --color-brand: #4F46E5;
+  --color-brand-vibrant: #58CC02;
+  --color-brand-light: #EEF2FF;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+  --color-surface-alt: #F1F3F7;
+  --color-text-primary: #111827;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #6B7280;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Color Palette from AGENTS.md */
+  --background: #F8F9FB;
+  --surface: #FFFFFF;
+  --surface-alt: #F1F3F7;
+  --border: #E4E7EC;
+  --text-primary: #111827;
+  --text-secondary: #4B5563; /* Darkened for better contrast: Slate 600 */
+  --text-muted: #6B7280;     /* Darkened for better contrast: Slate 500 */
+  
+  /* Industrial Vibrant Palette from UI.md */
+  --brand: #4F46E5;        /* Indigo */
+  --brand-vibrant: #58CC02; /* Lime/Safety Green accent */
+  --brand-light: #EEF2FF;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+  
+  /* Glassmorphism support */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  
+  --radius: 1rem;           /* 2xl rounded-2xl */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem; /* text-sm default */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 600; /* font-semibold */
+  letter-spacing: -0.025em; /* tracking-tight */
+}
+
+/* Card Utility */
+.card-base {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem; /* p-5 */
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
+}
+
+.card-hover:hover {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); /* shadow-md */
+  transition: all 0.2s ease-in-out;
+}
+
+/* Table Utilities */
+.table-zebra tr:nth-child(even) {
+  background-color: var(--surface-alt);
+}
+
+.table-header-sticky th {
+  position: sticky;
+  top: 0;
+  background-color: var(--surface);
+  z-index: 10;
+}
+
+/* Label Utility */
+.label-xs {
+  font-size: 0.75rem; /* text-xs */
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* tracking-wide */
+}
+
+/* Status Badges */
+.badge-pill {
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem; /* px-2.5 py-0.5 */
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500;
+}
+
+/* Animation: Shimmer for skeletons */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface-alt) 25%,
+    var(--border) 50%,
+    var(--surface-alt) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+
+/* Input Utility for Settings and Forms */
+.settings-input {
+  width: 100%;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 0.625rem 1rem; /* px-4 py-2.5 */
+  font-size: 0.8125rem; /* text-[13px] */
+  font-weight: 600; /* font-semibold */
+  color: var(--text-primary);
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.settings-input:focus {
+  background-color: white;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.settings-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Industrial Success State */
+.state-success {
+  background-color: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+
+/* Micro-interactions */
+.interactive-lift {
+  transition: all 0.2s ease-in-out;
+}
+
+.interactive-lift:hover {
+  transform: translateY(-2px);
+}
+
+.interactive-lift:active {
+  transform: scale(0.98);
 }
